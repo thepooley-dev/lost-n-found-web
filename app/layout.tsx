@@ -18,8 +18,22 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "Lost & Found",
-  description: "Create a temporary room for your event. Post lost and found items, share with guests, and get things returned.",
+  description:
+    "Create a temporary room for your event. Post lost and found items, share with guests, and get things returned.",
   manifest: "/manifest.json",
+  openGraph: {
+    title: "Lost & Found",
+    description:
+      "Create a temporary room for your event. Post lost and found items, share with guests, and get things returned.",
+    type: "website",
+    siteName: "Lost & Found",
+  },
+  twitter: {
+    card: "summary",
+    title: "Lost & Found",
+    description:
+      "Create a temporary room for your event. Post lost and found items, share with guests, and get things returned.",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
