@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { getRoom } from '@/lib/rooms';
 import { useItems } from '@/hooks/use-items';
 import { ensureSignedIn } from '@/lib/auth';
@@ -8,7 +9,7 @@ import type { Room } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Share2, Plus, Check, Loader2 } from 'lucide-react';
+import { Share2, Plus, Check, Loader2, ArrowLeft } from 'lucide-react';
 import { ShareSheet } from '@/components/share-sheet';
 import { AddItemSheet } from '@/components/add-item-sheet';
 import { markReturned } from '@/lib/items';
@@ -68,9 +69,16 @@ export default function RoomPageClient({ roomId }: { roomId: string }) {
     <div className="flex flex-1 flex-col">
       {/* Header */}
       <div className="border-b bg-white px-4 py-3 flex items-center justify-between">
-        <div>
-          <h1 className="font-semibold text-lg">Room: {roomId}</h1>
-          {room.name && <p className="text-sm text-gray-500">{room.name}</p>}
+        <div className="flex items-center gap-2">
+          <Link href="/">
+            <Button variant="ghost" size="icon" className="h-8 w-8">
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+          </Link>
+          <div>
+            <h1 className="font-semibold text-lg">Room: {roomId}</h1>
+            {room.name && <p className="text-sm text-gray-500">{room.name}</p>}
+          </div>
         </div>
         <Button variant="ghost" size="icon" onClick={() => setShowShare(true)}>
           <Share2 className="h-5 w-5" />
