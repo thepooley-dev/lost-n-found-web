@@ -9,10 +9,11 @@ import type { Room, Item } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Share2, Plus, Check, Loader2, ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react';
+import { Share2, Plus, Check, ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react';
 import { ShareDialog } from '@/components/share-dialog';
 import { AddItemDialog } from '@/components/add-item-dialog';
 import { ItemDetailDialog } from '@/components/item-detail-dialog';
+import { RoomSkeleton, ItemCardSkeleton } from '@/components/skeletons';
 import { markReturned } from '@/lib/items';
 import { toast } from 'sonner';
 
@@ -70,11 +71,7 @@ export default function RoomPageClient({ roomId }: { roomId: string }) {
   }, [isStandalone]);
 
   if (loading) {
-    return (
-      <div className="flex flex-1 items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
-      </div>
-    );
+    return <RoomSkeleton />;
   }
 
   if (!room) {
@@ -111,8 +108,10 @@ export default function RoomPageClient({ roomId }: { roomId: string }) {
       {/* Items grid */}
       <div className="flex-1 overflow-y-auto p-4">
         {itemsLoading ? (
-          <div className="flex justify-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <ItemCardSkeleton key={i} />
+            ))}
           </div>
         ) : itemsError ? (
           <div className="text-center py-12 space-y-2">
